@@ -1,0 +1,72 @@
+plugins {
+    id 'org.springframework.boot' version '3.1.0'
+    id 'io.spring.dependency-management' version '1.1.0'
+    id 'java'
+}
+
+jar {
+    enabled = false
+}
+
+bootJar {
+    enabled = false
+}
+
+war {
+    enabled = true
+    archiveFileName = 'project-management-system.war'
+}
+
+sourceSets {
+    main {
+        resources {
+            srcDir 'build'
+            includes = ['**/*']
+        }
+    }
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+
+// Configure frontend build
+npmInstall {
+    workingDir = file('frontend')
+}
+
+npmBuild {
+    workingDir = file('frontend')
+    args = ['run', 'build']
+}
+
+// Copy frontend build to resources
+processResources {
+    dependsOn 'npmBuild'
+    from('frontend/build') {
+        into 'static'
+    }
+}
+
+// Configure Tomcat
+springBoot {
+    buildInfo()
+}
+
+// Exclude JSP
+configurations {
+    providedRuntime
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+    implementation 'org.projectlombok:lombok'
+    implementation 'org.javatuples:javatuples'
+    
+    providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
+    
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
