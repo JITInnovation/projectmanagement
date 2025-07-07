@@ -8,6 +8,8 @@ This document provides a detailed description of the requirements for the Projec
 ### 1.2. Scope
 The software will be a web-based application designed to facilitate project creation, resource allocation, and time tracking for a software company. It will manage roles, enforce allocation rules, and provide a platform for users to log their work hours.
 
+A key component is a reusable Login Module, based on username and password authentication, which will be implemented using ReactJS (with Bootstrap for UI) on the frontend and Python with Django on the backend. This module will be designed for modularity and portability, so it can be integrated into other projects with minimal changes.
+
 ### 1.3. Definitions
 - **PM:** Project Manager
 - **Resource:** A Developer, Tester, or Lead.
@@ -17,7 +19,7 @@ The software will be a web-based application designed to facilitate project crea
 ## 2. Overall Description
 
 ### 2.1. Product Perspective
-This is a self-contained system that will manage internal company processes. It will not interface with external systems, to begin with.
+This is a self-contained system that will manage internal company processes. It will not interface with external systems, to begin with. The Login Module is designed to be a standalone, reusable authentication component that can be integrated into this and other web applications.
 
 ### 2.2. User Characteristics
 Users are expected to be employees of the software company with varying technical skills. The interface should be intuitive and require minimal training.
@@ -29,13 +31,19 @@ Users are expected to be employees of the software company with varying technica
 
 ## 3. Functional Requirements
 
-### 3.1. User Module
+### 3.1. Login Module (Reusable)
+- **FR-Login-1:** The system shall provide a login interface based on username and password authentication.
+- **FR-Login-2:** The Login Module shall be implemented using ReactJS with Bootstrap for the frontend and Django for the backend.
+- **FR-Login-3:** The Login Module shall be designed as a reusable, standalone component that can be integrated into other projects with minimal changes.
+- **FR-Login-4:** The system shall securely transmit and store user credentials, following best security practices (hashed and salted passwords, HTTPS).
+
+### 3.2. User Module
 - **FR1:** The system shall allow a Super User to create a user account with a name, email, and role.
-- **FR2:** The system shall require users to log in with their credentials (email and password).
+- **FR2:** The system shall require users to log in with their credentials (username and password) via the Login Module.
 - **FR3:** Authenticated users shall only be able to access features permitted for their role.
 - **FR4:** A user, upon first login, should be prompted to complete their profile.
 
-### 3.2. Project Module
+### 3.3. Project Module
 - **FR5:** A PM shall be able to create a new project record.
 - **FR6:** The project record shall include fields for: Project Name, Domain, Projected Start/End Dates, and Projected Release Quarter.
 - **FR7:** A PM shall be able to edit a project to add: Actual Kick-off Date, Actual Start/End Dates, and Actual Release Quarter.
@@ -55,9 +63,10 @@ Users are expected to be employees of the software company with varying technica
 
 ## 4. Non-Functional Requirements
 
-- **NFR1 (Security):** All data transmission between the client and server must be encrypted via HTTPS. Passwords must be hashed and salted.
+- **NFR1 (Security):** All data transmission between the client and server must be encrypted via HTTPS. Passwords must be hashed and salted. The Login Module must follow secure authentication and session management practices.
 - **NFR2 (Performance):** Page load times should not exceed 3 seconds. Database queries for resource availability should execute in under 2 seconds.
-- **NFR3 (Usability):** The user interface must be clean, intuitive, and responsive, providing a good user experience on both desktop and tablet devices.
+- **NFR3 (Usability):** The user interface must be clean, intuitive, and responsive, providing a good user experience on both desktop and tablet devices. The Login Module should provide a user-friendly and accessible login experience.
+
 - **NFR4 (Reliability):** The system should have an uptime of 99.5%.
 
 ## 5. System Architecture (Proposed)
