@@ -31,6 +31,24 @@ Users are expected to be employees of the software company with varying technica
 
 ## 3. Functional Requirements
 
+### Role-Based Menu and Landing Pages
+
+1. **Role-Based Menu System**
+    - The software must provide a dynamic menu system that displays options based on the user's role (e.g., Project Manager, Resource, System Administrator (SA)).
+    - Only features relevant to the user's role should be visible and accessible.
+
+2. **Landing Page/Dashboard on Logon**
+    - All users must be redirected to a personalized dashboard or landing page immediately after logon.
+
+3. **Project Manager Landing Page**
+    - The Project Manager's dashboard must display the health status of each project, specifically indicating whether each project is on time or delayed.
+
+4. **Resource Landing Page**
+    - The dashboard for resources (team members) must show a pie chart of their current project allocations.
+
+5. **SA (System Administrator) Landing Page**
+    - The SA's landing page should display a simple welcome message or a basic landing page.
+
 ### 3.1. Login Module (Reusable)
 - **FR-Login-1:** The system shall provide a login interface based on username and password authentication.
 - **FR-Login-2:** The Login Module shall be implemented using ReactJS with Bootstrap for the frontend and Django for the backend.
